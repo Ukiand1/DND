@@ -39,7 +39,7 @@ public class ListActivity extends ActionBarActivity {
     }
 
     public void onClick_AddNew (View v){
-        Intent intent = new Intent(ListActivity.this, MapPane.class);
+        Intent intent = new Intent(ListActivity.this, Chooser.class);
         startActivity(intent);
     }
 }

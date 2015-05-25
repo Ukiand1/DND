@@ -7,17 +7,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Custom location"
-        android:id="@+id/createNewLocation"
+        android:id="@+id/btnCreateNewLocation"
         android:layout_marginTop="67dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick_Map" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Default locations"
         android:id="@+id/textView2"
-        android:layout_below="@+id/createNewLocation"
+        android:layout_below="@+id/btnCreateNewLocation"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp"
         android:textSize="27dp" />

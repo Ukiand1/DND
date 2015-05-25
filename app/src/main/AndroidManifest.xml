@@ -49,6 +49,8 @@
         <activity android:name=".MapPane"></activity>
         <activity android:name=".Trigger"></activity>
         <activity android:name=".Location"></activity>
+        <activity android:name=".Chooser"></activity>
+
 
         <!-- Goolge API Key -->
 
