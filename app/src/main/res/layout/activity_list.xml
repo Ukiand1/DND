@@ -17,10 +17,10 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listaLocationView"
+        android:id="@+id/listLocationView"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView"
-        android:choiceMode="singleChoice"
+        android:choiceMode="multipleChoice"
         android:clickable="true"
         android:layout_above="@+id/buttonAddNew" />
 

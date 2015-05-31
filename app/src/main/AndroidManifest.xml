@@ -50,6 +50,7 @@
         <activity android:name=".Trigger"></activity>
         <activity android:name=".Location"></activity>
         <activity android:name=".Chooser"></activity>
+        <activity android:name=".TestList"></activity>
 
 
         <!-- Goolge API Key -->

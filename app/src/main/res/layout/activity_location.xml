@@ -24,16 +24,16 @@
         android:textSize="27dp" />
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listDefaultLocations"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="62dp"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
+        android:id="@+id/listViewAnimals"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="0.1dp"
+        android:divider="#0000CC"
         android:layout_alignRight="@+id/textView2"
         android:layout_alignEnd="@+id/textView2"
-        android:choiceMode="multipleChoice"
-        android:clickable="false"
-        android:layout_marginBottom="40dp" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:visibility="visible">
+    </ListView>
 </RelativeLayout>
