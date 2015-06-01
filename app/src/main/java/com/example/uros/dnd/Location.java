@@ -1,6 +1,7 @@
 package com.example.uros.dnd;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,9 +19,8 @@ import java.util.List;
 public class Location extends Activity{
 
     ArrayList<String> animalsNameList;
-    private ListView mainListView ;
-    private ArrayAdapter<String> listAdapter ;
-    private ListView lv;
+
+    String outNo1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,86 +63,14 @@ public class Location extends Activity{
 
                 String selectedAnimal=animalsNameList.get(position);
                 Toast.makeText(getApplicationContext(), "Animal Selected : " + selectedAnimal, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Location.this, MapPane.class);
+                intent.putExtra(selectedAnimal.toString(), outNo1);
+                startActivity(intent);
+
             }
         });
     }
 
-//    void getAnimalNames()
-//    {
-//        animalsNameList.add("DOG");
-//        animalsNameList.add("CAT");
-//        animalsNameList.add("HORSE");
-//        animalsNameList.add("ELEPHANT");
-//        animalsNameList.add("LION");
-//        animalsNameList.add("COW");
-//        animalsNameList.add("MONKEY");
-//        animalsNameList.add("DEER");
-//        animalsNameList.add("RABBIT");
-//        animalsNameList.add("BEER");
-//        animalsNameList.add("DONKEY");
-//        animalsNameList.add("LAMB");
-//        animalsNameList.add("GOAT");
-//
-//
-//    }
 
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-        // Get the reference of ListViewAnimals
-        ListView animalList=(ListView)findViewById(R.id.listLocationView);
-
-
-        animalsNameList = new ArrayList<String>();
-        getAnimalNames();
-        // Create The Adapter with passing ArrayList as 3rd parameter
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, animalsNameList);
-        // Set The Adapter
-        animalList.setAdapter(arrayAdapter);
-
-        // register onClickListener to handle click events on each item
-        animalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedAnimal = animalsNameList.get(position);
-                Toast.makeText(getApplicationContext(), "Animal Selected : " + selectedAnimal, Toast.LENGTH_LONG).show();
-            }
-
-            // argument position gives the index of item which is clicked
-
-        });
-
-
-
-
-    }
-    void getAnimalNames() {
-        animalsNameList.add("DOG");
-        animalsNameList.add("CAT");
-        animalsNameList.add("HORSE");
-        animalsNameList.add("ELEPHANT");
-        animalsNameList.add("LION");
-        animalsNameList.add("COW");
-        animalsNameList.add("MONKEY");
-        animalsNameList.add("DEER");
-        animalsNameList.add("RABBIT");
-        animalsNameList.add("BEER");
-        animalsNameList.add("DONKEY");
-        animalsNameList.add("LAMB");
-        animalsNameList.add("GOAT");
-
-
-    }*/
 }
 

@@ -11,6 +11,7 @@ import android.widget.EditText;
  */
 public class Trigger extends Activity{
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

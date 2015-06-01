@@ -18,7 +18,7 @@ public class Chooser extends Activity {
 
     }
 
-    public void onClick_Map(View v ){
+    public void onClick_Map(View v){
         Intent intent = new Intent(Chooser.this, MapPane.class);
         startActivity(intent);
     }
