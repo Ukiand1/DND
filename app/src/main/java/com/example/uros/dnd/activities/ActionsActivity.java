@@ -1,4 +1,4 @@
-package com.example.uros.dnd;
+package com.example.uros.dnd.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,16 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.uros.dnd.R;
+
 /**
  * Created by Uros on 0025 25 May.
  */
-public class Trigger extends Activity{
+public class ActionsActivity extends Activity{
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_triger);
+        setContentView(R.layout.activity_actions);
 
 
 
@@ -27,8 +29,10 @@ public class Trigger extends Activity{
         editText.setVisibility(View.VISIBLE);
         String gatherText = editText.getText().toString();
 
-        Intent intent = new Intent(Trigger.this, ListActivity.class);
+        Intent intent = new Intent(ActionsActivity.this, MyLocationsActivity.class);
         startActivity(intent);
+
+
 
     }
 

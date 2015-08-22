@@ -53,10 +53,10 @@ public class LocationDataSource {
 
     private Location cursorToLocation(Cursor cursor) {
         Location location = new Location();
-        location.setId(cursor.getLong(0));
+        location.setLocation_id(cursor.getLong(0));
         location.setName(cursor.getString(1));
-        location.setLatitude(cursor.getString(2));
-        location.setLongitude(cursor.getString(3));
+        location.setLatitude(cursor.getDouble(2));
+        location.setLongitude(cursor.getDouble(3));
         return location;
 
     }
@@ -84,7 +84,7 @@ public class LocationDataSource {
 
     public void deleteLocation(Location location){
 
-        long id = location.getId();
+        long id = location.getAction_id();
         System.out.println("Deleting location with id "+id);
         database.delete(SQLiteHelper.TABLE_LOCATIONS,SQLiteHelper.COLUMN_ID + " = " +id,null);
     }

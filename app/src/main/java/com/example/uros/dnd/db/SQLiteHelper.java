@@ -29,15 +29,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             + " integer primary key autoincrement, " + COLUMN_NAME
             + " text not null, "+ COLUMN_LAT +" text not null,"+COLUMN_LONG +" text not null);";
 
-   // public SQLiteHelper(Context context) {
-     //   super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    //}
-
     public SQLiteHelper(Context context) {
-        super(context, Environment.getExternalStorageDirectory()
-                        + File.separator + "DNDdb" + File.separator + DATABASE_NAME,
-                null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+//    public SQLiteHelper(Context context) {
+//        super(context, Environment.getExternalStorageDirectory()
+//                        + File.separator + "DNDdb" + File.separator + DATABASE_NAME,
+//                null, DATABASE_VERSION);
+//    }
 
     @Override
     public void onCreate(SQLiteDatabase database) {

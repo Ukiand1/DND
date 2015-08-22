@@ -1,7 +1,9 @@
-package com.example.uros.dnd;
+package com.example.uros.dnd.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,12 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.uros.dnd.R;
+
 import java.util.ArrayList;
 
 /**
  * Created by Uros on 0025 25 May.
  */
-public class LocationActivity extends Activity{
+public class AddLocationActivity extends Activity{
 
     ArrayList<String> animalsNameList;
 
@@ -22,7 +26,7 @@ public class LocationActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_add_location);
 
         ListView animalList=(ListView)findViewById(R.id.listViewAnimals);
 
@@ -61,13 +65,19 @@ public class LocationActivity extends Activity{
 
                 String selectedAnimal=animalsNameList.get(position);
                 Toast.makeText(getApplicationContext(), "Animal Selected : " + selectedAnimal, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(LocationActivity.this, MapPane.class);
+                Intent intent = new Intent(AddLocationActivity.this, MapActivity.class);
                 intent.putExtra(selectedAnimal.toString(), outNo1);
                 startActivity(intent);
 
             }
         });
+
+
+
+
     }
+
+
 
 
 }
