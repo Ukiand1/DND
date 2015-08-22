@@ -10,13 +10,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Uros on 0025 25 May.
  */
-public class Location extends Activity{
+public class LocationActivity extends Activity{
 
     ArrayList<String> animalsNameList;
 
@@ -63,7 +61,7 @@ public class Location extends Activity{
 
                 String selectedAnimal=animalsNameList.get(position);
                 Toast.makeText(getApplicationContext(), "Animal Selected : " + selectedAnimal, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Location.this, MapPane.class);
+                Intent intent = new Intent(LocationActivity.this, MapPane.class);
                 intent.putExtra(selectedAnimal.toString(), outNo1);
                 startActivity(intent);
 
