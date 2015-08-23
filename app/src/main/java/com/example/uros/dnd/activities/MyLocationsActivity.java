@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.example.uros.dnd.R;
 import com.example.uros.dnd.db.LocationDataSource;
+import com.example.uros.dnd.domen.Action;
 import com.example.uros.dnd.domen.Location;
 import com.example.uros.dnd.services.NotificationService;
 
@@ -18,23 +19,16 @@ import java.util.List;
 
 public class MyLocationsActivity extends Activity{
 
-    private LocationDataSource datasource;
-//    NotificationService mService;
-
-    ArrayList<String> animalsNameList;
+    private LocationDataSource locationDatasource;
+    ListView locationsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_locations);
-//        Intent intent = new Intent(this, NotificationService.class);
-//        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-
-
-        //ovo treba u metodi da bude, onoj koja ce se prva pozivati da ne bi bilo null pointer
-        datasource = new LocationDataSource(this);
-
-        // insertLocationExample();
+        locationDatasource = new LocationDataSource(this); //mora da se pozove na pocetku, zbog null pointera
+        //zakomentarisati za drugi poziv
+       // insertLocationExample();
 
         try {
             loadLocationsFromDb();
@@ -42,41 +36,13 @@ public class MyLocationsActivity extends Activity{
             System.out.println("Connection with database was unsuccessful");
         }
 
-
-
-//
-//
-//        // Create The Adapter with passing ArrayList as 3rd parameter
-//        ArrayAdapter<String> arrayAdapter =
-//                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,animalsNameList);
-//        // Set The Adapter
-//        animalList.setAdapter(arrayAdapter);
-//
-//        // register onClickListener to handle click events on each item
-//        animalList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-//        {
-//            // argument position gives the index of item which is clicked
-//            public void onItemClick(AdapterView<?> arg0, View v,int position, long arg3)
-//            {
-//
-//                String selectedAnimal=animalsNameList.get(position);
-//                Toast.makeText(getApplicationContext(), "Animal Selected : " + selectedAnimal, Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
     }
 
     private void loadLocationsFromDb() throws Exception {
 
-        ListView locationsList=(ListView)findViewById(R.id.listLocationView);
-
-        //datasource = new LocationDataSource(this);
-        datasource.openConnection();
-
-        List<Location> locations = datasource.getAllLocations();
-
+        locationsList=(ListView)findViewById(R.id.listLocationView);
+        List<Location> locations = locationDatasource.getAllLocations();
         ArrayAdapter<Location> adapter = new ArrayAdapter<Location>(this, android.R.layout.simple_list_item_1, locations);
-
         locationsList.setAdapter(adapter);
 
     }
@@ -84,20 +50,31 @@ public class MyLocationsActivity extends Activity{
     private void insertLocationExample()
     {
 
-        datasource.openConnection();
-
         Location l1 = new Location();
-        l1.setName("third");
+        l1.setName("Location 1");
         l1.setLatitude(123.232);
         l1.setLongitude(27.405);
+        l1.setRadius(50);
+        l1.setEnabled(true);
+
+        Action a1 = new Action();
+        a1.setName("Vibrate");
+        a1.setSound(0);
+        a1.setVibrate(true);
+        a1.setCall("Call you back.");
+
+        l1.setAction(a1);
 
         Location l2 = new Location();
-        l2.setName("fourth");
+        l2.setName("Location 2");
         l2.setLatitude(223.232);
         l2.setLongitude(37.405);
+        l2.setRadius(120);
+        l2.setEnabled(false);
+        l2.setAction(a1);
 
-        datasource.createLocation(l1);
-        datasource.createLocation(l2);
+        locationDatasource.insertLocation(l1);
+        locationDatasource.insertLocation(l2);
 
     }
 
@@ -124,19 +101,19 @@ public class MyLocationsActivity extends Activity{
 //    }
 
    public void onClick_AddNew (View v){
-       Intent intent = new Intent(MyLocationsActivity.this, TestActivity.class);
+       Intent intent = new Intent(MyLocationsActivity.this, MapActivity.class);
        startActivity(intent);
     }
 
     @Override
     protected void onResume() {
-        datasource.openConnection();
+        locationDatasource.openConnection();
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        datasource.closeConnection();
+        locationDatasource.closeConnection();
         super.onPause();
     }
 }

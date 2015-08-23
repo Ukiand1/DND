@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 
+import com.example.uros.dnd.domen.Action;
 import com.example.uros.dnd.domen.Location;
 
 import java.util.ArrayList;
@@ -17,7 +19,14 @@ public class LocationDataSource {
 
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
-    private String[] columns = {SQLiteHelper.COLUMN_ID, SQLiteHelper.COLUMN_NAME, SQLiteHelper.COLUMN_LAT, SQLiteHelper.COLUMN_LONG};
+    private String[] locationColumns = {SQLiteHelper.LOCATION_LOCATION_ID,
+                                        SQLiteHelper.LOCATION_LATITUDE,
+                                        SQLiteHelper.LOCATION_LONGITUDE,
+                                        SQLiteHelper.LOCATION_NAME,
+                                        SQLiteHelper.LOCATION_RADIUS,
+                                        SQLiteHelper.LOCATION_NAME,
+                                        SQLiteHelper.LOCATION_ACTION_ID};
+
 
 
     public LocationDataSource(Context context){
@@ -33,10 +42,10 @@ public class LocationDataSource {
     }
 
     public List<Location> getAllLocations(){
-
+        openConnection();
         List<Location> locations = new ArrayList<Location>();
 
-        Cursor cursor = database.query(SQLiteHelper.TABLE_LOCATIONS, columns,null,null,null,null,null);
+        Cursor cursor = database.query(SQLiteHelper.TABLE_LOCATION, locationColumns,null,null,null,null,null);
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
@@ -48,44 +57,70 @@ public class LocationDataSource {
 
         cursor.close();
 
+        closeConnection();
         return locations;
     }
 
     private Location cursorToLocation(Cursor cursor) {
         Location location = new Location();
         location.setLocation_id(cursor.getLong(0));
-        location.setName(cursor.getString(1));
-        location.setLatitude(cursor.getDouble(2));
-        location.setLongitude(cursor.getDouble(3));
+        location.setLatitude(cursor.getDouble(1));
+        location.setLongitude(cursor.getDouble(2));
+        location.setName(cursor.getString(3));
+        location.setRadius(cursor.getInt(4));
+
+        int enabled = cursor.getInt(5);
+        if (enabled == 1)
+            location.setEnabled(true);
+        else
+            location.setEnabled(false);
+
+        ActionDataSource actionDataSource = new ActionDataSource(database);
+        location.setAction(actionDataSource.getActionByID(cursor.getLong(6)));
         return location;
 
     }
 
-    public Location createLocation(Location location){
+    public void insertLocation(Location location){
+
+        openConnection();
+
+        ActionDataSource actionDataSource = new ActionDataSource(database);
+        Action action = actionDataSource.getActionByName(location.getAction().getName());
+        long actionId = 0;
+        if (action == null) {
+            actionId = actionDataSource.insertAction(location.getAction());
+        }else {
+            actionId = action.getActionId();
+        }
 
         ContentValues values = new ContentValues();
+        values.put(SQLiteHelper.LOCATION_NAME, location.getName());
+        values.put(SQLiteHelper.LOCATION_LATITUDE, location.getLatitude());
+        values.put(SQLiteHelper.LOCATION_LONGITUDE, location.getLongitude());
+        values.put(SQLiteHelper.LOCATION_RADIUS, location.getRadius());
+        int enabled;
+        if (location.isEnabled())
+            enabled = 1;
+        else
+            enabled = 0;
+        values.put(SQLiteHelper.LOCATION_ENABLED, enabled);
+        values.put(SQLiteHelper.LOCATION_ACTION_ID, actionId);
 
-        values.put(SQLiteHelper.COLUMN_NAME, location.getName());
-        values.put(SQLiteHelper.COLUMN_LAT, location.getLatitude());
-        values.put(SQLiteHelper.COLUMN_LONG, location.getLongitude());
 
-        long insertId = database.insert(SQLiteHelper.TABLE_LOCATIONS, null, values);
 
-        Cursor cursor = database.query(SQLiteHelper.TABLE_LOCATIONS, columns, SQLiteHelper.COLUMN_ID + " = " + insertId,
-                null,null,null,null);
-        cursor.moveToFirst();
-        Location newLocation = cursorToLocation(cursor);
-        cursor.close();
-        return newLocation;
 
+        database.insert(SQLiteHelper.TABLE_LOCATION, null, values);
+
+        closeConnection();
     }
 
 
 
-    public void deleteLocation(Location location){
-
-        long id = location.getAction_id();
-        System.out.println("Deleting location with id "+id);
-        database.delete(SQLiteHelper.TABLE_LOCATIONS,SQLiteHelper.COLUMN_ID + " = " +id,null);
-    }
+//    public void deleteLocation(Location location){
+//
+//        long id = location.getAction_id();
+//        System.out.println("Deleting location with id "+id);
+//        database.delete(SQLiteHelper.TABLE_LOCATIONS,SQLiteHelper.COLUMN_ID + " = " +id,null);
+//    }
 }

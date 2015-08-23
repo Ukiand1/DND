@@ -9,20 +9,25 @@ public class Location {
     private String name;
     private double latitude;
     private double longitude;
-    private long action_id;
+    private int radius;
+    private boolean enabled;
+    private Action action;
 
 
-    public Location(long action_id, String name, double latitude, double longitude) {
-        this.action_id = action_id;
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 
     public Location() {
 
     }
 
+    public Location(long location_id, String name, double latitude, double longitude, int radius, boolean enabled, Action action) {
+        this.location_id = location_id;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.radius = radius;
+        this.enabled = enabled;
+        this.action = action;
+    }
 
     public double getLatitude() {
         return latitude;
@@ -56,16 +61,32 @@ public class Location {
         this.longitude = longitude;
     }
 
-    public long getAction_id() {
-        return action_id;
+    public int getRadius() {
+        return radius;
     }
 
-    public void setAction_id(long action_id) {
-        this.action_id = action_id;
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 
+    public Action getAction() {
+        return action;
+    }
 
+    public void setAction(Action action) {
+        this.action = action;
+    }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

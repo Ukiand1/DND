@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
 
-    <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:background="@color/button_material_light"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/searchView"
-        android:layout_alignParentEnd="false"
-        android:clickable="true"
-        android:inputType="text"
-        android:gravity="top" />
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/searchView"
-        tools:layout="@layout/activity_map" />
-
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prikazi moju okolinu"
-        android:id="@+id/buttonCity"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick_City" />
+        android:layout_weight="12" />
+    <!--tools:layout="@layout/activity_map" />-->
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editName"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        android:inputType="text"
-        android:hint="Hello"
-        android:enabled="true"
-        android:editable="true"
-        android:clickable="true" />
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/txtRadius"
+            android:text="Name:"
+
+            />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editLocationName"
+            />
+
+        <TextView
+            android:id="@+id/txcontent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Radius:"
+
+            />
 
 
-</RelativeLayout>
+        <SeekBar
+            android:id="@+id/progresRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="bottom"
+            android:text="Confirm" />
+
+    </LinearLayout>
+</LinearLayout>
