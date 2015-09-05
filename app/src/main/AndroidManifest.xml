@@ -61,6 +61,11 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".services.GPSReceiver" android:enabled="false">
+
+        </receiver>
+
+
         <!--NOTIFICATION SERVICE-->
         <service android:name="com.example.uros.dnd.services.NotificationService"
             android:label="notification"

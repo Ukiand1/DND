@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -22,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapActivity extends Activity{
@@ -29,6 +31,7 @@ public class MapActivity extends Activity{
 
     private Marker marker;
     private Circle circle;
+    private List<Circle> currentCircles;
 
     // Google Map
     private GoogleMap googleMap;
@@ -56,28 +59,28 @@ public class MapActivity extends Activity{
 
         setConfirmOnClickListener();
 
-        drawCircles();
+        loadAndDrawCircles();
 
 
 
     }
 
-    private void drawCircles() {
-
+    private void loadAndDrawCircles() {
         LocationDataSource locationDataSource = new LocationDataSource(getApplicationContext());
         List<com.example.uros.dnd.domen.Location> locations = locationDataSource.getAllLocations();
+        currentCircles = new ArrayList<>();
         for (com.example.uros.dnd.domen.Location location : locations) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             int radius = location.getRadius();
 
             LatLng latLng = new LatLng(latitude,longitude);
-            drawCircle(radius,latLng);
-
+            Circle circle = drawCircle(radius,latLng);
+            currentCircles.add(circle);
         }
-
-
     }
+
+
 
     private void setConfirmOnClickListener() {
 
@@ -121,11 +124,17 @@ public class MapActivity extends Activity{
                     return;
                 LatLng latLng = new LatLng(latitude, longitude);
 
+                if (checkRadius(progress)) {
+                    resizeCircle(progress, latLng);
+                    radius = progress;
+                }
+                else {
 
-                resizeCircle(progress, latLng);
-                addMarker(latLng);
 
-                radius = progress;
+                    seekBar.setProgress(radius);
+                }
+
+
             }
 
             @Override
@@ -139,11 +148,45 @@ public class MapActivity extends Activity{
 
     }
 
-    private void drawCircle(int radius, LatLng latLng) {
+    private boolean checkRadius(int progress) {
+        for (int i = 0; i < currentCircles.size(); i++) {
+            Circle cur = currentCircles.get(i);
+            double distanceMeters = metersBetweenTwoPoints(cur);
+            if (distanceMeters < (cur.getRadius()+progress)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private double metersBetweenTwoPoints(Circle circle){  // generally used geo measurement function
+        double lat1 = marker.getPosition().latitude;
+        double lon1 = marker.getPosition().longitude;
+        double lat2 = circle.getCenter().latitude;
+        double lon2 = circle.getCenter().longitude;
+
+        double R = 6378.137; // Radius of earth in KM
+        double dLat = (lat2 - lat1) * Math.PI / 180;
+        double dLon = (lon2 - lon1) * Math.PI / 180;
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double d = R * c;
+        return d * 1000; // meters
+    }
+
+
+
+    private Circle drawCircle(int radius, LatLng latLng) {
         CircleOptions co = new CircleOptions();
         co.radius(radius);
+        co.strokeWidth(2);
+        co.strokeColor(Color.argb(199,7,91,227));
+        co.fillColor(Color.argb(76,102,229,229));
         co.center(latLng);
-        googleMap.addCircle(co);
+        return googleMap.addCircle(co);
 
 
     }
@@ -151,10 +194,11 @@ public class MapActivity extends Activity{
     private void resizeCircle(int radius, LatLng latLng) {
         if (circle != null)
             circle.remove();
-        CircleOptions co = new CircleOptions();
-        co.radius(radius);
-        co.center(latLng);
-        circle = googleMap.addCircle(co);
+//        CircleOptions co = new CircleOptions();
+//        co.radius(radius);
+//        co.center(latLng);
+//        circle = googleMap.addCircle(co);
+        circle = drawCircle(radius,latLng);
 
 
     }
@@ -191,10 +235,11 @@ public class MapActivity extends Activity{
             @Override
             public void onMapClick(LatLng latLng) {
                 //MarkerOptions markerOptions = new MarkerOptions();
-               // markerOptions.position(latLng);
+                // markerOptions.position(latLng);
                 ;
-                addMarker(latLng);
+//                addMarker(latLng);
                 refreshProgress();
+                addMarker(latLng);
                 googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 //                googleMap.addMarker(markerOptions);
 
@@ -206,18 +251,34 @@ public class MapActivity extends Activity{
 
 
     private void addMarker(LatLng latLng) {
-        if (marker != null)
+
+        if (marker != null) {
+            marker.setVisible(false);
             marker.remove();
+            marker = null;
+        }
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         marker = googleMap.addMarker(markerOptions);
+        marker.setVisible(true);
+
+
 
     }
 
+
+
+
+    private double calculateDistance(double markerLat, double markerLon, double circleLat, double circleLon) {
+        return Math.sqrt(Math.pow((markerLat-circleLat),2)+Math.pow((markerLon-circleLon),2));
+    }
+
     private void refreshProgress() {
-        if (circle != null)
+        if (circle != null){
             circle.remove();
+        }
+
         radiusBar.setProgress(0);
     }
 

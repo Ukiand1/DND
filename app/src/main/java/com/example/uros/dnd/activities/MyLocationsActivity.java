@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import com.example.uros.dnd.R;
 import com.example.uros.dnd.db.LocationDataSource;
 import com.example.uros.dnd.domen.Action;
 import com.example.uros.dnd.domen.Location;
 import com.example.uros.dnd.domen.LocationAdapter;
+import com.example.uros.dnd.services.GPSService;
 import com.example.uros.dnd.services.NotificationService;
 
 import java.util.ArrayList;
@@ -21,7 +24,8 @@ import java.util.List;
 public class MyLocationsActivity extends Activity{
 
     private LocationDataSource locationDatasource;
-    ListView locationsList;
+    private ListView locationsList;
+    private Switch switchService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,21 @@ public class MyLocationsActivity extends Activity{
         } catch (Exception e) {
             System.out.println("Connection with database was unsuccessful");
         }
+
+
+        switchService = (Switch)findViewById(R.id.switchService);
+        switchService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked)
+                    GPSService.turnOnService(getApplicationContext());
+                else
+                    GPSService.turnOffService(getApplicationContext());
+
+
+            }
+        });
 
     }
 
