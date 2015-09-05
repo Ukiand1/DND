@@ -24,7 +24,7 @@ public class LocationDataSource {
                                         SQLiteHelper.LOCATION_LONGITUDE,
                                         SQLiteHelper.LOCATION_NAME,
                                         SQLiteHelper.LOCATION_RADIUS,
-                                        SQLiteHelper.LOCATION_NAME,
+                                        SQLiteHelper.LOCATION_ENABLED,
                                         SQLiteHelper.LOCATION_ACTION_ID};
 
 

@@ -4,4 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="buttonAddNew">Add new</string>
+    <string name="titleLocations">MY LOCATIONS</string>
+    <color name="customColorBack">#3399FF</color>
+    <color name="white">#FFFFFF</color>
 </resources>

@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+
 import android.widget.ListView;
 
 import com.example.uros.dnd.R;
 import com.example.uros.dnd.db.LocationDataSource;
 import com.example.uros.dnd.domen.Action;
 import com.example.uros.dnd.domen.Location;
+import com.example.uros.dnd.domen.LocationAdapter;
 import com.example.uros.dnd.services.NotificationService;
 
 import java.util.ArrayList;
@@ -40,10 +41,15 @@ public class MyLocationsActivity extends Activity{
 
     private void loadLocationsFromDb() throws Exception {
 
+//        locationsList=(ListView)findViewById(R.id.listLocationView);
+//        List<Location> locations = locationDatasource.getAllLocations();
+//        ArrayAdapter<Location> adapter = new ArrayAdapter<Location>(this, android.R.layout.simple_list_item_1, locations);
+//        locationsList.setAdapter(adapter);
+
         locationsList=(ListView)findViewById(R.id.listLocationView);
         List<Location> locations = locationDatasource.getAllLocations();
-        ArrayAdapter<Location> adapter = new ArrayAdapter<Location>(this, android.R.layout.simple_list_item_1, locations);
-        locationsList.setAdapter(adapter);
+        LocationAdapter customAdapter = new LocationAdapter(this, R.layout.location_adapter, locations);
+        locationsList .setAdapter(customAdapter);
 
     }
 
