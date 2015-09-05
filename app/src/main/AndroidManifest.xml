@@ -61,7 +61,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".services.GPSReceiver" android:enabled="false">
+        <receiver android:name=".services.GPSReceiver">
 
         </receiver>
 
