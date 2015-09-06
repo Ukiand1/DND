@@ -3,6 +3,7 @@ package com.example.uros.dnd.domen;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.uros.dnd.R;
+import com.example.uros.dnd.activities.EditActionActivity;
 import com.example.uros.dnd.db.LocationDataSource;
 
 import java.util.List;
@@ -87,6 +89,23 @@ public class LocationAdapter extends ArrayAdapter<Location> {
                 }
             });
 
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(),EditActionActivity.class);
+                    intent.putExtra("lName", location.getName());
+                    intent.putExtra("lId",location.getLocation_id());
+                    Action a = location.getAction();
+                    intent.putExtra("actionId",a.getActionId());
+                    intent.putExtra("actionName",a.getName());
+                    intent.putExtra("actionCall",a.getCall());
+                    intent.putExtra("actionVibrate",a.isVibrate());
+                    intent.putExtra("actionSound",a.getSound());
+                    //Dodati vrednost switcha boxa, ??????
+                    getContext().startActivity(intent);
+                }
+            });
+
 
 
 
@@ -94,6 +113,8 @@ public class LocationAdapter extends ArrayAdapter<Location> {
 
         return v;
     }
+
+
 
 
 }
