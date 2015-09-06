@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.uros.dnd.R;
+import com.example.uros.dnd.db.LocationDataSource;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class LocationAdapter extends ArrayAdapter<Location> {
 
     List<Location> _Locations;
     Activity _activity;
+    private LocationDataSource locationDatasource;
 
     public LocationAdapter(Context context, int resource, List<Location> locations) {
         super(context, resource, locations);
@@ -55,11 +58,13 @@ public class LocationAdapter extends ArrayAdapter<Location> {
         }
 
        //ClipData.Item p = getItem(position);
-            Location location = getItem(position);
+            final Location location = getItem(position);
 
         if (location != null) {
             TextView lName = (TextView) v.findViewById(R.id.locationName);
-            Switch lSwitch = (Switch) v.findViewById(R.id.locationSwitch);
+            final Switch lSwitch = (Switch) v.findViewById(R.id.locationSwitch);
+
+
 
 
             if (lName != null) {
@@ -70,6 +75,24 @@ public class LocationAdapter extends ArrayAdapter<Location> {
                 if(location.isEnabled())
                     lSwitch.setChecked(true);
             }
+
+            lSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    int status = 0;
+                    if (lSwitch.isChecked())
+                        status = 1;
+                    locationDatasource = new LocationDataSource(getContext());
+                    locationDatasource.updateLocationStatus(location.getLocation_id(),status);
+                }
+            });
+
+            lSwitch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
 
 
         }
