@@ -6,6 +6,8 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="buttonAddNew">Add new</string>
     <string name="titleLocations">MY LOCATIONS</string>
+    <string name="textService">Service</string>
     <color name="customColorBack">#3399FF</color>
+    <color name="customColorGreen">#7ACC52</color>
     <color name="white">#FFFFFF</color>
 </resources>
