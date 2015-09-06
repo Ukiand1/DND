@@ -34,8 +34,8 @@ public class ActionDataSource {
 
 
     private String[] actionColumns = {SQLiteHelper.ACTION_ACTION_ID,
-            SQLiteHelper.ACTION_CALL,
             SQLiteHelper.ACTION_NAME,
+            SQLiteHelper.ACTION_CALL,
             SQLiteHelper.ACTION_SOUND,
             SQLiteHelper.ACTION_VIBRATION};
 
@@ -88,9 +88,12 @@ public class ActionDataSource {
 
         Action action = null;
 
+
         Cursor cursor = database.query(SQLiteHelper.TABLE_ACTION, actionColumns,whereClause,whereParam,null,null,null);
-        if (cursor.getCount() == 0)
+        if (cursor.getCount() == 0) {
             return null;
+        }
+
         cursor.moveToFirst();
 
         action = cursorToAction(cursor);
@@ -101,7 +104,16 @@ public class ActionDataSource {
     }
 
 
+    public void updateAction(Action a){
+        int vibrate = 0;
+        if(a.isVibrate())
+            vibrate = 1;
 
+        String query = "Update action set name ="+a.getName()+",call="+a.getCall()+",sound="+a.getSound()+",vibration="+vibrate+" where action_id="+a.getActionId();
+
+        database.execSQL(query);
+
+    }
 
 
     private Action cursorToAction(Cursor cursor) {

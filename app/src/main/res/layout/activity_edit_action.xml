@@ -15,18 +15,15 @@
         android:orientation="vertical">
 
         <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Your location:" />
+
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Your actions:" />
+            android:id="@+id/locatioNameEdit"/>
 
-        <Spinner
-            android:id="@+id/comboActionsEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:hint="Unesite zeljeno ime"
-            android:textSize="37dp" />
 
         <TextView
             android:layout_width="fill_parent"

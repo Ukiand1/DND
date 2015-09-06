@@ -65,6 +65,7 @@ public class ActionsActivity extends Activity{
 
 
         Intent intent = getIntent();
+
         latitude = intent.getDoubleExtra("latitude",0.0);
         longitude = intent.getDoubleExtra("longitude", 0.0);
         locationName = intent.getStringExtra("locationName");

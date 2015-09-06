@@ -76,7 +76,8 @@ public class LocationDataSource {
             location.setEnabled(false);
 
         ActionDataSource actionDataSource = new ActionDataSource(database);
-        location.setAction(actionDataSource.getActionByID(cursor.getLong(6)));
+        long actionId = cursor.getLong(6);
+        location.setAction(actionDataSource.getActionByID(actionId));
         return location;
 
     }
