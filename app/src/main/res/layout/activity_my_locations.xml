@@ -5,25 +5,26 @@
 
     android:orientation="vertical"
     android:weightSum="7"
-    >
+    android:background="@mipmap/background">
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/titleLocations"
-
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:gravity="center"
         android:layout_alignParentTop="true"
         android:id="@+id/textView"
         android:paddingTop="5dp"
-        android:textSize="30sp" />
+        android:textSize="40sp" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listLocationView"
         android:choiceMode="multipleChoice"
-        android:textColor="@color/white"
         android:clickable="true"
         android:paddingTop="20dp"
         android:layout_above="@+id/buttonAddNew"
@@ -35,9 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonAddNew"
-
+        android:textColor="@color/white"
         android:id="@+id/buttonAddNew"
         android:onClick="onClick_AddNew"
+        android:background="@drawable/buttonnew"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -47,7 +49,8 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Service:"
+        android:text="@string/textService"
+        android:textColor="@color/white"
         android:gravity="left"
         android:textSize="20sp"
         android:id="@+id/switchService"
