@@ -1,4 +1,4 @@
-package com.example.uros.dnd;
+package com.example.uros.dnd.broadcast;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,34 +14,24 @@ import java.util.Date;
 /**
  * Created by Mihailo on 9/6/2015.
  */
-public class SMS extends PhoneCallReceiver{
+public class SMSAnswer extends PhoneCallReceiver{
 
 
-    String textPhoneNo; // ne treba
+    public SMSAnswer() {
+        sms = null;
+    }
+
     String sms;
 
 
     @Override
     protected void onIncomingCallStarted(Context ctx, String number, Date start) {
         super.onIncomingCallStarted(ctx, number, start);
-        this.textPhoneNo = number;
-        sendSMS(ctx,textPhoneNo);
     }
 
     public void sendSMS(Context ctx, String number) {
-
-        try {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(textPhoneNo, null, sms, null, null);
-            Toast.makeText(ctx, "SMS Sent!",
-                    Toast.LENGTH_LONG).show();
-
-        } catch (Exception e) {
-            Toast.makeText(ctx,
-                    "SMS faild, please try again later!",
-                    Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
+            smsManager.sendTextMessage(number, null, sms, null, null);
     }
 }
 
