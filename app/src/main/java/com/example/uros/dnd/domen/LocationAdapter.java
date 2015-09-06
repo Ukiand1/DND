@@ -87,12 +87,7 @@ public class LocationAdapter extends ArrayAdapter<Location> {
                 }
             });
 
-            lSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                }
-            });
 
 
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutOne"
+    android:id="@+id/editAction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/radialgradientback"
@@ -20,7 +20,7 @@
             android:text="Your actions:" />
 
         <Spinner
-            android:id="@+id/comboActions"
+            android:id="@+id/comboActionsEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
@@ -34,7 +34,7 @@
             android:text="Name:" />
 
         <EditText
-            android:id="@+id/editName"
+            android:id="@+id/editActionName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
@@ -58,13 +58,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/rbtnVibrationYes"
+                android:id="@+id/rbtnVibrationYesEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Yes" />
 
             <RadioButton
-                android:id="@+id/rbtnVibrationNo"
+                android:id="@+id/rbtnVibrationNoEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No" />
@@ -79,7 +79,7 @@
             android:text="Sound level:" />
 
         <SeekBar
-            android:id="@+id/progressSound"
+            android:id="@+id/progressSoundEdit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
@@ -100,11 +100,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/editMessage"
+            android:id="@+id/editMessageText"
             android:lines="3"/>
 
         <Button
-            android:id="@+id/btnFinish"
+            android:id="@+id/btnUpdateAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

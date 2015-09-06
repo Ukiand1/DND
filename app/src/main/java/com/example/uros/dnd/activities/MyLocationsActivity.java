@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -68,7 +69,33 @@ public class MyLocationsActivity extends Activity{
         locationsList=(ListView)findViewById(R.id.listLocationView);
         List<Location> locations = locationDatasource.getAllLocations();
         LocationAdapter customAdapter = new LocationAdapter(this, R.layout.location_adapter, locations);
-        locationsList .setAdapter(customAdapter);
+        locationsList.setAdapter(customAdapter);
+
+//        locationsList.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent();
+//                intent.putExtra("Location", )
+//            }
+//        });
+
+        locationsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Location location = (Location) locationsList.getItemAtPosition(position);
+                Intent intent = new Intent(getApplicationContext(),EditActionActivity.class);
+                intent.putExtra("lName", location.getName());
+                intent.putExtra("lId",location.getLocation_id());
+                Action a = location.getAction();
+                intent.putExtra("actionId",a.getActionId());
+                intent.putExtra("actionName",a.getName());
+                intent.putExtra("actionCall",a.getCall());
+                intent.putExtra("actionVibrate",a.isVibrate());
+                intent.putExtra("actionSound",a.getSound());
+                startActivity(intent);
+
+            }
+        });
 
     }
 
@@ -103,27 +130,6 @@ public class MyLocationsActivity extends Activity{
 
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_list, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
    public void onClick_AddNew (View v){
        Intent intent = new Intent(MyLocationsActivity.this, MapActivity.class);
