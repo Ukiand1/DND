@@ -115,6 +115,16 @@ public class LocationDataSource {
         closeConnection();
     }
 
+    public void updateLocationStatus(long locationId, int status){
+
+        openConnection();
+        String updateQuery = "Update location set enabled ="+status+" where location_id ="+locationId;
+        database.execSQL(updateQuery);
+        closeConnection();
+
+
+    }
+
 
 
 //    public void deleteLocation(Location location){
