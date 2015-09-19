@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.uros.dnd.R;
 import com.example.uros.dnd.db.ActionDataSource;
+import com.example.uros.dnd.db.LocationDataSource;
 import com.example.uros.dnd.domen.Action;
 
 public class EditActionActivity extends Activity {
@@ -31,7 +32,8 @@ public class EditActionActivity extends Activity {
     private Button btnDelete;
     private TextView locationNameText;
 
-    private ActionDataSource dataSource;
+    private ActionDataSource actionDataSource;
+    private LocationDataSource locationDataSource;
 
 
     private long actionId;
@@ -40,7 +42,6 @@ public class EditActionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_action);
-
 
         editName = (EditText) findViewById(R.id.editActionName);
         rbtnVibrationYes = (RadioButton) findViewById(R.id.rbtnVibrationYesEdit);
@@ -75,6 +76,15 @@ public class EditActionActivity extends Activity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                actionId = intent.getLongExtra("actionId",0);
+                long locationId = intent.getLongExtra("lId",0);
+
+                if(actionId >3){
+                    deleteLocationAndAction(locationId,actionId);
+                }
+                else{
+                    deleteLocation(locationId);
+                }
 
             }
         });
@@ -107,20 +117,33 @@ public class EditActionActivity extends Activity {
 
     public void updateAction(Action a){
 
-        dataSource = new ActionDataSource(getApplicationContext());
-        dataSource.openConnection();
-        dataSource.updateAction(a);
-        dataSource.closeConnection();
+        actionDataSource = new ActionDataSource(getApplicationContext());
+        actionDataSource.openConnection();
+        actionDataSource.updateAction(a);
+        actionDataSource.closeConnection();
 
 
     }
 
-    public void deleteAction(long actionId){
+    public void deleteLocationAndAction(long locationId, long actionId){
 
-        dataSource = new ActionDataSource(getApplicationContext());
-        dataSource.openConnection();
-        dataSource.deleteAction(actionId);
-        dataSource.closeConnection();
+        actionDataSource = new ActionDataSource(getApplicationContext());
+        actionDataSource.openConnection();
+        actionDataSource.deleteAction(actionId);
+        actionDataSource.closeConnection();
+
+        locationDataSource = new LocationDataSource(getApplicationContext());
+        locationDataSource.openConnection();
+        locationDataSource.deleteLocation(locationId);
+        locationDataSource.closeConnection();
+    }
+
+    public void deleteLocation(long locationId){
+        locationDataSource = new LocationDataSource(getApplicationContext());
+        locationDataSource.openConnection();
+        locationDataSource.deleteLocation(locationId);
+        locationDataSource.closeConnection();
+
     }
 
 

@@ -154,16 +154,11 @@ public class ActionDataSource {
         return id;
     }
 
-    
-
-
-//    public void deleteLocation(Location location){
-//
-//        long id = location.getAction_id();
-//        System.out.println("Deleting location with id "+id);
-//        database.delete(SQLiteHelper.TABLE_LOCATIONS,SQLiteHelper.COLUMN_ID + " = " +id,null);
-//    }
-public void deleteAction(long actionId) {
+    public void deleteAction(long actionId) {
+            openConnection();
+            String deleteQuery = "DELETE FROM action WHERE location_id="+actionId;
+            database.execSQL(deleteQuery);
+            closeConnection();
     }
 
 

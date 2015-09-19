@@ -62,9 +62,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             "\taction_id\tINTEGER\n" +
             ");";
 
-    private static final String INSERT_DEFAULT_ACTIONS = "";
 
 
+    private static final String insertDefault = "insert into action  (name, sound , vibration) values \n" +
+            "('vibration', 0, 1),\n" +
+            "('silent', 0, 0),\n" +
+            "('normal', 100, 1)";
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -80,10 +83,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_ACTION);
         database.execSQL(CREATE_LOCATION);
+        database.execSQL(insertDefault);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+
+    private void insertDefaultActions(){
 
     }
 

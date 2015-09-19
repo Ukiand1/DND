@@ -126,12 +126,13 @@ public class LocationDataSource {
 
     }
 
+    public void deleteLocation(long locationId){
+
+        openConnection();
+        String deleteQuery = "DELETE FROM location WHERE location_id="+locationId;
+        database.execSQL(deleteQuery);
+        closeConnection();
+    }
 
 
-//    public void deleteLocation(Location location){
-//
-//        long id = location.getAction_id();
-//        System.out.println("Deleting location with id "+id);
-//        database.delete(SQLiteHelper.TABLE_LOCATIONS,SQLiteHelper.COLUMN_ID + " = " +id,null);
-//    }
 }
