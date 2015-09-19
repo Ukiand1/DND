@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class ActionsActivity extends Activity{
     private SeekBar progressSound;
     private EditText editMessage;
     private Button btnFinish;
+    private String[] comboActions;
 
 
 
@@ -75,16 +77,96 @@ public class ActionsActivity extends Activity{
 
         fillComboBox();
 
+        comboBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                switch (position){
+                    case 0: setCustom();
+                        break;
+                    case 1: setVibrate();
+                        break;
+                    case 2: setSilent();
+                        break;
+                    case 3: setNormal();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
 
+    private void setNormal() {
+        rbtnVibrationYes.setChecked(true);
+        rbtnVibrationNo.setChecked(false);
+        progressSound.setProgress(100);
+        editMessage.setText("");
+        editName.setText("");
+        disableAllComands();
+
+    }
+
+    private void setSilent() {
+        rbtnVibrationNo.setChecked(true);
+        rbtnVibrationYes.setChecked(false);
+        progressSound.setProgress(0);
+        editMessage.setText("");
+        editName.setText("");
+        disableAllComands();
+
+    }
+
+
+    private void setVibrate() {
+        rbtnVibrationNo.setChecked(false);
+        rbtnVibrationYes.setChecked(true);
+        progressSound.setProgress(0);
+        editMessage.setText("");
+        editName.setText("");
+        disableAllComands();
+    }
+
+
+    private void setCustom() {
+        enableAllComands();
+    }
+
+    private void disableAllComands() {
+        rbtnVibrationNo.setEnabled(false);
+        rbtnVibrationYes.setEnabled(false);
+        progressSound.setEnabled(false);
+        editMessage.setEnabled(false);
+        editName.setEnabled(false);
+    }
+
+    private void enableAllComands() {
+        rbtnVibrationNo.setEnabled(true);
+        rbtnVibrationYes.setEnabled(true);
+        progressSound.setEnabled(true);
+        editMessage.setEnabled(true);
+        editName.setEnabled(true);
+    }
+
+
     private void fillComboBox() {
 
-        ActionDataSource actionDataSource = new ActionDataSource(getApplicationContext());
-        List<Action> actions = actionDataSource.getAllActions();
+//        ActionDataSource actionDataSource = new ActionDataSource(getApplicationContext());
+//        List<Action> actions = actionDataSource.getAllActions();
 
+//        ArrayAdapter<Action> adapter = new ArrayAdapter<Action>(this, android.R.layout.simple_spinner_item, actions);
+//        comboBox.setAdapter(adapter);
 
-        ArrayAdapter<Action> adapter = new ArrayAdapter<Action>(this, android.R.layout.simple_spinner_item, actions);
+        comboActions=new String[4];
+        comboActions[0] = "Custom";
+        comboActions[1] = "Vibrate";
+        comboActions[2] = "Silent";
+        comboActions[3] = "Normal";
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, comboActions);
         comboBox.setAdapter(adapter);
 
     }
@@ -130,6 +212,9 @@ public class ActionsActivity extends Activity{
 
                 LocationDataSource locationDataSource = new LocationDataSource(getApplicationContext());
                 locationDataSource.insertLocation(location);
+
+                Intent intent = new Intent(ActionsActivity.this, MyLocationsActivity.class);
+                startActivity(intent);
 
             }
         });

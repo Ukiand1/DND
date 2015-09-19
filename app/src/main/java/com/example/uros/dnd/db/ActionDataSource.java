@@ -2,6 +2,7 @@ package com.example.uros.dnd.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -105,13 +106,18 @@ public class ActionDataSource {
 
 
     public void updateAction(Action a){
+
         int vibrate = 0;
         if(a.isVibrate())
             vibrate = 1;
 
-        String query = "Update action set name ="+a.getName()+",call="+a.getCall()+",sound="+a.getSound()+",vibration="+vibrate+" where action_id="+a.getActionId();
+        ContentValues values = new ContentValues();
+        values.put("name", a.getName());
+        values.put("call", a.getCall());
+        values.put("sound", a.getSound());
+        values.put("vibration", vibrate);
 
-        database.execSQL(query);
+        database.update("action", values, "action_id="+a.getActionId(), null);
 
     }
 
@@ -148,6 +154,7 @@ public class ActionDataSource {
         return id;
     }
 
+    
 
 
 //    public void deleteLocation(Location location){
@@ -156,7 +163,8 @@ public class ActionDataSource {
 //        System.out.println("Deleting location with id "+id);
 //        database.delete(SQLiteHelper.TABLE_LOCATIONS,SQLiteHelper.COLUMN_ID + " = " +id,null);
 //    }
-
+public void deleteAction(long actionId) {
+    }
 
 
 

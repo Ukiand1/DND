@@ -100,12 +100,28 @@
             android:id="@+id/editMessageText"
             android:lines="3"/>
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
         <Button
             android:id="@+id/btnUpdateAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Finish" />
+            android:text="Done" />
+
+        <Button
+            android:id="@+id/btnDeleteAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Delete" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

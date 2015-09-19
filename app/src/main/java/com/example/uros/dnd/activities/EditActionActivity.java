@@ -28,6 +28,7 @@ public class EditActionActivity extends Activity {
     private SeekBar progressSound;
     private EditText editMessage;
     private Button btnUpdate;
+    private Button btnDelete;
     private TextView locationNameText;
 
     private ActionDataSource dataSource;
@@ -48,6 +49,7 @@ public class EditActionActivity extends Activity {
         progressSound = (SeekBar) findViewById(R.id.progressSoundEdit);
         editMessage = (EditText) findViewById(R.id.editMessageText);
         btnUpdate = (Button)findViewById(R.id.btnUpdateAction);
+        btnDelete = (Button) findViewById(R.id.btnDeleteAction);
         locationNameText = (TextView) findViewById(R.id.locatioNameEdit);
 
         final Intent intent = getIntent();
@@ -64,6 +66,16 @@ public class EditActionActivity extends Activity {
                 int aSound = progressSound.getProgress();
                 Action action =  new Action(actionId,aName,aMessage,vibrate,aSound);
                 updateAction(action);
+
+                Intent intent = new Intent(EditActionActivity.this, MyLocationsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -101,6 +113,14 @@ public class EditActionActivity extends Activity {
         dataSource.closeConnection();
 
 
+    }
+
+    public void deleteAction(long actionId){
+
+        dataSource = new ActionDataSource(getApplicationContext());
+        dataSource.openConnection();
+        dataSource.deleteAction(actionId);
+        dataSource.closeConnection();
     }
 
 
