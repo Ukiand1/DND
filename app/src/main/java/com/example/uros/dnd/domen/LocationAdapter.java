@@ -90,8 +90,8 @@ public class LocationAdapter extends ArrayAdapter<Location> {
             });
 
             v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                    @Override
+                    public void onClick(View view) {
                     Intent intent = new Intent(getContext(),EditActionActivity.class);
                     intent.putExtra("lName", location.getName());
                     intent.putExtra("lId",location.getLocation_id());

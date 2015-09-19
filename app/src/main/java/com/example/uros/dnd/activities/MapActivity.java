@@ -5,22 +5,17 @@ package com.example.uros.dnd.activities;
  */
 import com.example.uros.dnd.R;
 import com.example.uros.dnd.db.LocationDataSource;
-import com.example.uros.dnd.domen.Action;
+import com.example.uros.dnd.util.GPSUtil;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -204,27 +199,27 @@ public class MapActivity extends Activity{
     }
 
 
-    private LatLng getCurrentLocation(){
-
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // Create a criteria object to retrieve provider
-        Criteria criteria = new Criteria();
-        // Get the name of the best provider
-        String provider = locationManager.getBestProvider(criteria, true);
-
-        // Get Current Location
-        Location myLocation = locationManager.getLastKnownLocation(provider);
-
-        LatLng currentLocation  = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
-
-        return currentLocation;
-    }
+//    private LatLng getCurrentLocation(){
+//
+//        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        // Create a criteria object to retrieve provider
+//        Criteria criteria = new Criteria();
+//        // Get the name of the best provider
+//        String provider = locationManager.getBestProvider(criteria, true);
+//
+//        // Get Current Location
+//        Location myLocation = locationManager.getLastKnownLocation(provider);
+//
+//        LatLng currentLocation  = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
+//
+//        return currentLocation;
+//    }
 
 
     private void initializeMap(){
         googleMap = ((MapFragment) getFragmentManager().findFragmentById(
                 R.id.map)).getMap();
-        LatLng currentLocation = getCurrentLocation();
+        LatLng currentLocation = GPSUtil.getCurrentLocation(getApplicationContext());
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentLocation, 14);
         googleMap.animateCamera(update);
         //googleMap.addMarker(new MarkerOptions().position(LOCATION_BURNABY).title("Hello I'm here!"));

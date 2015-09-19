@@ -18,6 +18,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <!--ALARM-->
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
+
 
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -39,7 +42,7 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDVnYAj3kWR6s0IaMXWgKIR1baFy97d4xQ" />
+            android:value="AIzaSyAfcLdtpDuYj2wwgiLuZ4lLxLMtCZgV_ho" />
 
         <activity
             android:name=".activities.MyLocationsActivity"
@@ -66,7 +69,7 @@
         </receiver>
         <receiver
             android:name=".services.GPSReceiver"
-            android:enabled="false" >
+            android:enabled="true" >
         </receiver>
 
         <!-- NOTIFICATION SERVICE -->
