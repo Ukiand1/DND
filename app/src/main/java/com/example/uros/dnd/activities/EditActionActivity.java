@@ -104,9 +104,11 @@ public class EditActionActivity extends Activity {
         long locationId = intent.getLongExtra("lId",0);
 
         editName.setText(actionName);
-        if (actionVibrate)
+        if (actionVibrate) {
             rbtnVibrationYes.setChecked(true);
-        rbtnVibrationNo.setChecked(true);
+        }else {
+            rbtnVibrationNo.setChecked(true);
+        }
         progressSound.setProgress(actionSound);
         editMessage.setText(actionCall);
         locationNameText.setText(locationName);
@@ -136,6 +138,9 @@ public class EditActionActivity extends Activity {
         locationDataSource.openConnection();
         locationDataSource.deleteLocation(locationId);
         locationDataSource.closeConnection();
+
+        Intent intent = new Intent(EditActionActivity.this, MyLocationsActivity.class);
+        startActivity(intent);
     }
 
     public void deleteLocation(long locationId){
@@ -143,6 +148,9 @@ public class EditActionActivity extends Activity {
         locationDataSource.openConnection();
         locationDataSource.deleteLocation(locationId);
         locationDataSource.closeConnection();
+
+        Intent intent = new Intent(EditActionActivity.this, MyLocationsActivity.class);
+        startActivity(intent);
 
     }
 

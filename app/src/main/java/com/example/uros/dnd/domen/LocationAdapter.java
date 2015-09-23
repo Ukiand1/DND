@@ -64,10 +64,13 @@ public class LocationAdapter extends ArrayAdapter<Location> {
 
         if (location != null) {
             TextView lName = (TextView) v.findViewById(R.id.locationName);
+            TextView aName = (TextView) v.findViewById(R.id.actionName);
             final Switch lSwitch = (Switch) v.findViewById(R.id.locationSwitch);
 
 
-
+            if(aName != null){
+                aName.setText(location.getAction().getName());
+            }
 
             if (lName != null) {
                 lName.setText(location.getName());

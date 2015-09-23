@@ -2,6 +2,7 @@ package com.example.uros.dnd.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -105,7 +106,7 @@ public class ActionsActivity extends Activity{
         rbtnVibrationNo.setChecked(false);
         progressSound.setProgress(100);
         editMessage.setText("");
-        editName.setText("");
+        editName.setText("On Normal");
         disableAllComands();
 
     }
@@ -115,7 +116,7 @@ public class ActionsActivity extends Activity{
         rbtnVibrationYes.setChecked(false);
         progressSound.setProgress(0);
         editMessage.setText("");
-        editName.setText("");
+        editName.setText("On Silent");
         disableAllComands();
 
     }
@@ -126,7 +127,7 @@ public class ActionsActivity extends Activity{
         rbtnVibrationYes.setChecked(true);
         progressSound.setProgress(0);
         editMessage.setText("");
-        editName.setText("");
+        editName.setText("On Vibrate");
         disableAllComands();
     }
 
@@ -167,6 +168,8 @@ public class ActionsActivity extends Activity{
         comboActions[3] = "Normal";
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, comboActions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         comboBox.setAdapter(adapter);
 
     }
@@ -196,31 +199,56 @@ public class ActionsActivity extends Activity{
                     return;
                 }
 
-                Action action = new Action();
-                action.setName(actionName);
-                action.setCall(messageCall);
-                action.setSound(soundLevel);
-                action.setVibrate(isVibrate);
+                if (comboBox.getSelectedItemPosition() == 0) {
+                    addLocationCustomActivity();
+                }
+                else {
+                    int actionId = comboBox.getSelectedItemPosition();
+                    addLocationPredefinedActivity(actionId);
+                }
 
-                Location location = new Location();
-                location.setLatitude(latitude);
-                location.setLongitude(longitude);
-                location.setName(locationName);
-                location.setRadius(radius);
-                location.setEnabled(true);
-                location.setAction(action);
-
-                LocationDataSource locationDataSource = new LocationDataSource(getApplicationContext());
-                locationDataSource.insertLocation(location);
-
-                Intent intent = new Intent(ActionsActivity.this, MyLocationsActivity.class);
-                startActivity(intent);
 
             }
         });
+    }
+
+    private void addLocationCustomActivity(){
+        Action action = new Action();
+
+        action.setName(actionName);
+        action.setCall(messageCall);
+        action.setSound(soundLevel);
+        action.setVibrate(isVibrate);
 
 
+        Location location = new Location();
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        location.setName(locationName);
+        location.setRadius(radius);
+        location.setEnabled(true);
+        location.setAction(action);
 
+        LocationDataSource locationDataSource = new LocationDataSource(getApplicationContext());
+        locationDataSource.insertLocation(location);
+
+        Intent intent = new Intent(ActionsActivity.this, MyLocationsActivity.class);
+        startActivity(intent);
+    }
+
+    private void addLocationPredefinedActivity(int actionId){
+        Location location = new Location();
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        location.setName(locationName);
+        location.setRadius(radius);
+        location.setEnabled(true);
+
+        LocationDataSource locationDataSource = new LocationDataSource(getApplicationContext());
+        locationDataSource.insertLocationPredefinedActivity(location, actionId);
+
+        Intent intent = new Intent(ActionsActivity.this, MyLocationsActivity.class);
+        startActivity(intent);
     }
 
 

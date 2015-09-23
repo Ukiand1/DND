@@ -156,7 +156,7 @@ public class ActionDataSource {
 
     public void deleteAction(long actionId) {
             openConnection();
-            String deleteQuery = "DELETE FROM action WHERE location_id="+actionId;
+            String deleteQuery = "DELETE FROM action WHERE action_id="+actionId;
             database.execSQL(deleteQuery);
             closeConnection();
     }

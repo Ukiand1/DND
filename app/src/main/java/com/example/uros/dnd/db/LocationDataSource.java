@@ -108,12 +108,35 @@ public class LocationDataSource {
         values.put(SQLiteHelper.LOCATION_ENABLED, enabled);
         values.put(SQLiteHelper.LOCATION_ACTION_ID, actionId);
 
+        database.insert(SQLiteHelper.TABLE_LOCATION, null, values);
 
+        closeConnection();
+    }
 
+    public void insertLocationPredefinedActivity(Location location, int actionId){
+
+        openConnection();
+
+        ContentValues values = new ContentValues();
+
+        values.put(SQLiteHelper.LOCATION_NAME, location.getName());
+        values.put(SQLiteHelper.LOCATION_LATITUDE, location.getLatitude());
+        values.put(SQLiteHelper.LOCATION_LONGITUDE, location.getLongitude());
+        values.put(SQLiteHelper.LOCATION_RADIUS, location.getRadius());
+
+        int enabled;
+        if (location.isEnabled())
+            enabled = 1;
+        else
+            enabled = 0;
+
+        values.put(SQLiteHelper.LOCATION_ENABLED, enabled);
+        values.put(SQLiteHelper.LOCATION_ACTION_ID, actionId);
 
         database.insert(SQLiteHelper.TABLE_LOCATION, null, values);
 
         closeConnection();
+
     }
 
     public void updateLocationStatus(long locationId, int status){
@@ -126,7 +149,7 @@ public class LocationDataSource {
 
     }
 
-    public void deleteLocation(long locationId){
+        public void deleteLocation(long locationId){
 
         openConnection();
         String deleteQuery = "DELETE FROM location WHERE location_id="+locationId;

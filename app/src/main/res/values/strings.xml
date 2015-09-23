@@ -4,11 +4,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_test">TestActivity</string>
-    <string name="buttonAddNew">Add location</string>
+    <string name="buttonAddNew">Add new</string>
     <string name="titleLocations">MY LOCATIONS</string>
-    <string name="textService">Service</string>
+    <string name="textService">Service:</string>
     <color name="customColorBack">#3399FF</color>
     <color name="customColorGreen">#7ACC52</color>
     <color name="white">#FFFFFF</color>
+    <color name="spinnerBlue">#19A7C8</color>
     <string name="title_activity_edit_action">EditActionActivity</string>
 </resources>

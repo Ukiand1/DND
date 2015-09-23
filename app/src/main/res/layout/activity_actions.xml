@@ -3,7 +3,7 @@
     android:id="@+id/layoutOne"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/radialgradientback"
+    android:background="#E5E5E5"
     android:orientation="vertical">
 
 
@@ -17,12 +17,14 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColor="#19A7C8"
             android:text="Your actions:" />
 
         <Spinner
             android:id="@+id/comboActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#19A7C8"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="0dp"
             android:hint="Unesite zeljeno ime"
@@ -31,11 +33,13 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColor="#19A7C8"
             android:text="Name:" />
 
         <EditText
             android:id="@+id/editName"
             android:layout_width="fill_parent"
+            android:textColor="#19A7C8"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -49,6 +53,7 @@
         <TextView
             android:id="@+id/txtVibration"
             android:layout_width="fill_parent"
+            android:textColor="#19A7C8"
             android:layout_height="wrap_content"
             android:text="Vibration:" />
 
@@ -61,12 +66,14 @@
                 android:id="@+id/rbtnVibrationYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="#19A7C8"
                 android:text="Yes" />
 
             <RadioButton
                 android:id="@+id/rbtnVibrationNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="#19A7C8"
                 android:text="No" />
 
 
@@ -76,6 +83,7 @@
             android:id="@+id/txtSound"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColor="#19A7C8"
             android:text="Sound level:" />
 
         <SeekBar
@@ -94,6 +102,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColor="#19A7C8"
             android:text="Message text:" />
 
         <EditText
@@ -101,6 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/editMessage"
+            android:textColor="#19A7C8"
             android:lines="3"/>
 
         <Button
@@ -108,6 +118,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/buttonnew"
             android:text="Finish" />
 
     </LinearLayout>
