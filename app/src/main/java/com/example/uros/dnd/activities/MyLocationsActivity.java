@@ -12,6 +12,7 @@ import android.widget.Switch;
 
 import com.example.uros.dnd.R;
 import com.example.uros.dnd.db.LocationDataSource;
+import com.example.uros.dnd.db.ServiceDataSource;
 import com.example.uros.dnd.domen.Action;
 import com.example.uros.dnd.domen.Location;
 import com.example.uros.dnd.domen.LocationAdapter;
@@ -25,6 +26,7 @@ import java.util.List;
 public class MyLocationsActivity extends Activity{
 
     private LocationDataSource locationDatasource;
+    private ServiceDataSource serviceDataSource;
     private ListView locationsList;
     private Switch switchService;
 
@@ -33,13 +35,24 @@ public class MyLocationsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_locations);
         locationDatasource = new LocationDataSource(this); //mora da se pozove na pocetku, zbog null pointera
-        //zakomentarisati za drugi poziv
-       // insertLocationExample();
+
+
 
         try {
             loadLocationsFromDb();
         } catch (Exception e) {
             System.out.println("Connection with database was unsuccessful");
+        }
+
+        switchService = (Switch) findViewById(R.id.switchService);
+
+        serviceDataSource = new ServiceDataSource(this);
+        int serviceStatus = serviceDataSource.getServiceStatus();
+
+        if(serviceStatus ==0) {
+            switchService.setChecked(false);
+        }else {
+            switchService.setChecked(true);
         }
 
 
@@ -48,10 +61,14 @@ public class MyLocationsActivity extends Activity{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked)
+                if (isChecked) {
                     GPSService.turnOnService(getApplicationContext());
-                else
+                    serviceDataSource.updateServiceStatus(1);
+                }
+                else{
                     GPSService.turnOffService(getApplicationContext());
+                    serviceDataSource.updateServiceStatus(0);
+                }
 
 
             }

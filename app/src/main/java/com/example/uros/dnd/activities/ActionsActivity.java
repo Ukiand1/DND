@@ -150,6 +150,8 @@ public class ActionsActivity extends Activity{
         progressSound.setEnabled(true);
         editMessage.setEnabled(true);
         editName.setEnabled(true);
+        editName.setText("");
+        editMessage.setText("");
     }
 
 
@@ -167,8 +169,8 @@ public class ActionsActivity extends Activity{
         comboActions[2] = "Silent";
         comboActions[3] = "Normal";
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, comboActions);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, comboActions);
+       // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         comboBox.setAdapter(adapter);
 

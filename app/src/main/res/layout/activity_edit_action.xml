@@ -3,7 +3,7 @@
     android:id="@+id/editAction"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/radialgradientback"
+    android:background="#E5E5E5"
     android:orientation="vertical">
 
 
@@ -17,22 +17,28 @@
         <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#19A7C8"
         android:text="Your location:" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColor="#19A7C8"
             android:id="@+id/locatioNameEdit"/>
 
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#19A7C8"
             android:text="Name:" />
 
         <EditText
             android:id="@+id/editActionName"
             android:layout_width="fill_parent"
+            android:textColor="#19A7C8"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -47,6 +53,8 @@
             android:id="@+id/txtVibration"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#19A7C8"
             android:text="Vibration:" />
 
         <RadioGroup
@@ -73,6 +81,8 @@
             android:id="@+id/txtSound"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#19A7C8"
             android:text="Sound level:" />
 
         <SeekBar
@@ -91,12 +101,15 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#19A7C8"
             android:text="Message text:" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="#19A7C8"
             android:id="@+id/editMessageText"
             android:lines="3"/>
 
@@ -110,14 +123,19 @@
             android:id="@+id/btnUpdateAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttonnew"
+            android:textColor="@color/white"
             android:layout_gravity="center"
             android:text="Done" />
 
         <Button
             android:id="@+id/btnDeleteAction"
             android:layout_width="wrap_content"
+            android:background="@drawable/buttonnew"
+            android:textColor="@color/white"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="10sp"
             android:text="Delete" />
 
         </LinearLayout>

@@ -32,6 +32,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String ACTION_SOUND = "sound";
     public static final String ACTION_VIBRATION = "vibration";
 
+    public static final String TABLE_SERVICE = "service";
+    public static final String SERVICE_SERVICE_ID = "service_id";
+    public static final String SERVCIE_STATUS = "status";
+
 
 
     //string for database creation
@@ -62,6 +66,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             "\taction_id\tINTEGER\n" +
             ");";
 
+    private static final String CREATE_SERVICE =
+
+            "CREATE TABLE service (\n" +
+                    "\tservice_id\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "\tstatus\tINTEGER\n" +
+                    ");";
+
+    private static final String insertServiceVaules = "insert into service (status) values (0)";
 
 
     private static final String insertDefault = "insert into action  (name, sound , vibration) values \n" +
@@ -84,6 +96,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.execSQL(CREATE_ACTION);
         database.execSQL(CREATE_LOCATION);
         database.execSQL(insertDefault);
+        database.execSQL(CREATE_SERVICE);
+        database.execSQL(insertServiceVaules);
     }
 
     @Override

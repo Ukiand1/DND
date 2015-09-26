@@ -3,6 +3,7 @@ package com.example.uros.dnd.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -103,6 +104,8 @@ public class EditActionActivity extends Activity {
         String locationName = intent.getStringExtra("lName");
         long locationId = intent.getLongExtra("lId",0);
 
+
+
         editName.setText(actionName);
         if (actionVibrate) {
             rbtnVibrationYes.setChecked(true);
@@ -113,8 +116,19 @@ public class EditActionActivity extends Activity {
         editMessage.setText(actionCall);
         locationNameText.setText(locationName);
 
+        if(actionId == 1 || actionId == 2 || actionId ==3) {
+            disableComands();
+        }
 
+    }
 
+    private void disableComands() {
+        progressSound.setEnabled(false);
+        editMessage.setEnabled(false);
+        editName.setEnabled(false);
+        locationNameText.setEnabled(false);
+        rbtnVibrationNo.setEnabled(false);
+        rbtnVibrationYes.setEnabled(false);
     }
 
     public void updateAction(Action a){
