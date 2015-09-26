@@ -18,6 +18,7 @@ import com.example.uros.dnd.domen.Location;
 import com.example.uros.dnd.domen.LocationAdapter;
 import com.example.uros.dnd.services.GPSService;
 import com.example.uros.dnd.services.NotificationService;
+import com.example.uros.dnd.util.SoundProfileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class MyLocationsActivity extends Activity{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if (isChecked) {
+                    SoundProfileUtil.setPreviousState(getApplicationContext());
                     GPSService.turnOnService(getApplicationContext());
                     serviceDataSource.updateServiceStatus(1);
                 }

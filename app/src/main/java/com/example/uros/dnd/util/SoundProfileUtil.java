@@ -14,22 +14,22 @@ public class SoundProfileUtil {
 
     public static void setPreviousState(Context context) {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager.getMode() == AudioManager.RINGER_MODE_NORMAL) {
+        if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
             isVibration = true;
             volume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
             return;
         }
-        if (audioManager.getMode() == AudioManager.RINGER_MODE_VIBRATE) {
+        if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
             isVibration = true;
             volume = 0;
             return;
         }
-        if (audioManager.getMode() == AudioManager.RINGER_MODE_SILENT) {
+        if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT) {
             isVibration = false;
             volume = 0;
             return;
         }
-        Toast.makeText(context, "Volume:"+volume, Toast.LENGTH_SHORT).show();
+
 
 
     }
@@ -69,6 +69,10 @@ public class SoundProfileUtil {
             setVibrateMode(context);
             return;
         }
+        if (soundLevel > 0 && isVibration == true) {
+            setNormalMode(context);
+            return;
+        }
         // TODO: dodati custom mode
 
     }
@@ -80,6 +84,8 @@ public class SoundProfileUtil {
         isVibration = null;
 
     }
+
+
 
 
 }
