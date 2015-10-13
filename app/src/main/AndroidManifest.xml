@@ -25,6 +25,7 @@
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <!-- Required OpenGL ES 2.0. for Maps V2 -->
     <uses-feature
@@ -59,7 +60,7 @@
         <!-- BROADCAST RECIEVER FOR CALLS -->
         <receiver
             android:name=".broadcast.CallReceiver"
-            android:enabled="false" >
+            android:enabled="true" >
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
