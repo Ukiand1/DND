@@ -21,17 +21,31 @@ public class SMSAnswer extends PhoneCallReceiver{
         sms = null;
     }
 
-    String sms;
+    private static String sms;
 
 
     @Override
     protected void onIncomingCallStarted(Context ctx, String number, Date start) {
         super.onIncomingCallStarted(ctx, number, start);
+
+        Toast toast = Toast.makeText(ctx, "Incomming call started", Toast.LENGTH_SHORT);
+        toast.show();
+
+
+        if (sms != null)
+            sendSMS(ctx,number);
     }
 
     public void sendSMS(Context ctx, String number) {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(number, null, sms, null, null);
+        Toast toast = Toast.makeText(ctx, "Incomming call started", Toast.LENGTH_SHORT);
+        toast.show();
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(number, null, sms, null, null);
+    }
+
+    public static void setSms(String sms) {
+        SMSAnswer.sms = sms;
     }
 }
 

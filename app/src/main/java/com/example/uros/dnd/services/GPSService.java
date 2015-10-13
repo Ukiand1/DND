@@ -20,7 +20,7 @@ public class GPSService {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         int interval = 10000;
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, sender);
-        Toast.makeText(context, "Alarm Set", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Alarm Set", Toast.LENGTH_SHORT).show();
 
 
 
@@ -41,7 +41,7 @@ public class GPSService {
         Intent i = new Intent(context, GPSReceiver.class);
         PendingIntent sender = PendingIntent.getBroadcast(context,REQUEST_CODE, i, 0);
         manager.cancel(sender);
-        Toast.makeText(context, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Alarm Canceled", Toast.LENGTH_SHORT).show();
 
 
 

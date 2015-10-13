@@ -61,19 +61,19 @@ public class SoundProfileUtil {
             setSilentMode(context);
             return;
         }
-        if (soundLevel == 100 && isVibration == true) {
+        if (soundLevel == 100 && vibration == true) {
             setNormalMode(context);
             return;
         }
-        if (soundLevel == 0 && isVibration == true) {
+        if (soundLevel == 0 && vibration == true) {
             setVibrateMode(context);
             return;
         }
-        if (soundLevel > 0 && isVibration == true) {
+        if (soundLevel > 0 && vibration == true) {
             setNormalMode(context);
             return;
         }
-        // TODO: dodati custom mode
+
 
     }
 

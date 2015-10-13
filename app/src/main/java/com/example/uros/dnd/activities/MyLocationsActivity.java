@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Switch;
 
 import com.example.uros.dnd.R;
+import com.example.uros.dnd.broadcast.PhoneCallReceiver;
 import com.example.uros.dnd.db.LocationDataSource;
 import com.example.uros.dnd.db.ServiceDataSource;
 import com.example.uros.dnd.domen.Action;
@@ -69,6 +70,7 @@ public class MyLocationsActivity extends Activity{
                 }
                 else{
                     GPSService.turnOffService(getApplicationContext());
+                    PhoneCallReceiver.setSms(null);
                     serviceDataSource.updateServiceStatus(0);
                 }
 

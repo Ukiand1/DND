@@ -3,7 +3,10 @@ package com.example.uros.dnd.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -16,10 +19,18 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver{
     private static Date callStartTime;
     private static boolean isIncoming;
     private static String savedNumber;  //because the passed incoming is only valid in ringing
-
+    private static String sms;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Toast toast = Toast.makeText(context, "PhoneCallReceiver", Toast.LENGTH_SHORT);
+        toast.show();
+
+        if (sms != null) {
+
+        }
+
         //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
         if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
             savedNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
@@ -64,6 +75,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver{
                 callStartTime = new Date();
                 savedNumber = number;
                 onIncomingCallStarted(context, number, callStartTime);
+
                 break;
             case TelephonyManager.CALL_STATE_OFFHOOK:
                 //Transition of ringing->offhook are pickups of incoming calls.  Nothing done on them
@@ -72,22 +84,38 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver{
                     callStartTime = new Date();
                     onOutgoingCallStarted(context, savedNumber, callStartTime);
                 }
+
                 break;
             case TelephonyManager.CALL_STATE_IDLE:
                 //Went to idle-  this is the end of a call.  What type depends on previous state(s)
                 if(lastState == TelephonyManager.CALL_STATE_RINGING){
                     //Ring but no pickup-  a miss
                     onMissedCall(context, savedNumber, callStartTime);
+                    if (sms != null && !sms.trim().isEmpty()) {
+                        sendSms(savedNumber);
+                    }
+
                 }
                 else if(isIncoming){
                     onIncomingCallEnded(context, savedNumber, callStartTime, new Date());
+
+                    Log.d("DEBUG", "incoming ended ===========================================================================");
                 }
                 else{
                     onOutgoingCallEnded(context, savedNumber, callStartTime, new Date());
+
                 }
                 break;
         }
         lastState = state;
     }
 
+    private void sendSms(String number) {
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(number, null, sms, null, null);
+    }
+
+    public static void setSms(String sms) {
+        PhoneCallReceiver.sms = sms;
+    }
 }

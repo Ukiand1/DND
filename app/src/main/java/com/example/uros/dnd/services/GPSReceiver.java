@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.uros.dnd.broadcast.PhoneCallReceiver;
+import com.example.uros.dnd.broadcast.SMSAnswer;
 import com.example.uros.dnd.db.LocationDataSource;
 import com.example.uros.dnd.domen.Action;
 import com.example.uros.dnd.domen.Location;
@@ -45,8 +47,8 @@ public class GPSReceiver extends BroadcastReceiver {
                                                                          //setovanp stanje ne treba dirate (nece se ovde nista desiti
                                                                          //osim setovanja telefona na profil iz Action
                             SoundProfileUtil.setPreviousState(context);
-                            Toast toast = Toast.makeText(context, "SoundProfileUtil.setPreviousState()", Toast.LENGTH_SHORT);
-                            toast.show();
+//                            Toast toast = Toast.makeText(context, "SoundProfileUtil.setPreviousState()", Toast.LENGTH_SHORT);
+//                            toast.show();
                         }
                         Action action = location.getAction();
                         int soundLevel = action.getSound();
@@ -54,18 +56,25 @@ public class GPSReceiver extends BroadcastReceiver {
                         SoundProfileUtil.setMode(context, soundLevel, vibration);
                         GPSUtil.setCircleId((int) location.getLocation_id()); //location_id je ustvari circleID
 
-                        Toast toast = Toast.makeText(context, "SoundProfileUtil.setMode()"+vibration, Toast.LENGTH_SHORT);
-                        toast.show();
+                        String callSms = location.getAction().getCall();
+                        if (callSms != null && !callSms.isEmpty()) {
+                            PhoneCallReceiver.setSms(callSms);
+                        }
+
+
+//                        Toast toast = Toast.makeText(context, "SoundProfileUtil.setMode()"+vibration, Toast.LENGTH_SHORT);
+//                        toast.show();
                     }
-                    Toast toast = Toast.makeText(context, "return", Toast.LENGTH_SHORT);
-                    toast.show();
+//                    Toast toast = Toast.makeText(context, "return", Toast.LENGTH_SHORT);
+//                    toast.show();
                     return;
                 }
             }
         }
-        Toast toast = Toast.makeText(context, "SoundProfleUtil.resetMode()", Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(context, "SoundProfleUtil.resetMode()", Toast.LENGTH_SHORT);
+//        toast.show();
         SoundProfileUtil.resetMode(context);
+        PhoneCallReceiver.setSms(null);
         GPSUtil.setCircleId(null);
     }
 }
